@@ -13,11 +13,6 @@ public class BaseEntity : IComparable<BaseEntity>
 
     public int CompareTo(BaseEntity? other)
     {
-        if (other == null)
-        {
-            return 1;
-        }
-
-        return other!.Id.CompareTo(Id);
+        return other == null ? 1 : other!.Id.CompareTo(Id);
     }
 }
