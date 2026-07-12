@@ -1,11 +1,6 @@
-﻿using Ambev.DeveloperEvaluation.Domain.Common;
+using Ambev.DeveloperEvaluation.Domain.Common;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ambev.DeveloperEvaluation.ORM.Mapping.Base
 {
@@ -29,7 +24,6 @@ namespace Ambev.DeveloperEvaluation.ORM.Mapping.Base
             builder.Property(x => x.CreatedAt).IsRequired();
             builder.Property(x => x.UpdatedBy);
             builder.Property(x => x.UpdatedAt);
-            builder.Property(x => x.IsCancelled).IsRequired().HasDefaultValue(false);
         }
     }
 }

@@ -12,6 +12,5 @@ namespace Ambev.DeveloperEvaluation.Domain.Common
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public Guid? UpdatedBy { get; set; }
         public DateTime? UpdatedAt { get; set; }
-        public bool IsCancelled { get; set; }
     }
 }
