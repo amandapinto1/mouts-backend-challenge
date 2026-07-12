@@ -40,21 +40,16 @@ public class CreateSaleHandler : IRequestHandler<CreateSaleCommand, CreateSaleRe
         if (!validationResult.IsValid)
             throw new ValidationException(validationResult.Errors);
 
-        // Resolve BranchName
         var branch = await _branchRepository.GetByIdAsync(command.BranchId, cancellationToken)
             ?? throw new KeyNotFoundException($"Branch with Id {command.BranchId} not found");
-        command.BranchName = branch.Name;
 
-        // Auto-generate SaleNumber
         var nextNumber = await _saleRepository.GetNextSaleNumberAsync(cancellationToken);
         command.SaleNumber = $"SALE-{nextNumber:D6}";
 
-        // Resolve ProductName and UnitPrice for each item
         foreach (var item in command.Items)
         {
             var product = await _productRepository.GetByIdAsync(item.ProductId, cancellationToken)
                 ?? throw new KeyNotFoundException($"Product with Id {item.ProductId} not found");
-            item.ProductName = product.Title;
             item.UnitPrice = product.Price;
         }
 

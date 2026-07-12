@@ -37,9 +37,7 @@ public class SalesController : BaseController
         [FromQuery(Name = "_order")] string? order = null,
         [FromQuery(Name = "saleNumber")] string? saleNumber = null,
         [FromQuery(Name = "customerId")] Guid? customerId = null,
-        [FromQuery(Name = "customerName")] string? customerName = null,
         [FromQuery(Name = "branchId")] Guid? branchId = null,
-        [FromQuery(Name = "branchName")] string? branchName = null,
         [FromQuery(Name = "_minDate")] DateTime? minDate = null,
         [FromQuery(Name = "_maxDate")] DateTime? maxDate = null,
         [FromQuery(Name = "_minTotal")] decimal? minTotal = null,
@@ -56,9 +54,7 @@ public class SalesController : BaseController
                 Order = order,
                 SaleNumber = saleNumber,
                 CustomerId = customerId,
-                CustomerName = customerName,
                 BranchId = branchId,
-                BranchName = branchName,
                 MinDate = minDate,
                 MaxDate = maxDate,
                 MinTotal = minTotal,
@@ -137,7 +133,6 @@ public class SalesController : BaseController
             {
                 SaleDate = DateTime.UtcNow,
                 CustomerId = Guid.Parse(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)!.Value),
-                CustomerName = User.FindFirst(System.Security.Claims.ClaimTypes.Name)!.Value,
                 BranchId = request.BranchId,
                 Items = [.. request.Items.Select(i => new CreateSaleItemCommand
                 {
@@ -191,7 +186,6 @@ public class SalesController : BaseController
                 Id = id,
                 SaleDate = DateTime.UtcNow,
                 CustomerId = Guid.Parse(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)!.Value),
-                CustomerName = User.FindFirst(System.Security.Claims.ClaimTypes.Name)!.Value,
                 BranchId = request.BranchId,
                 Items = [.. request.Items.Select(i => new UpdateSaleItemCommand
                 {

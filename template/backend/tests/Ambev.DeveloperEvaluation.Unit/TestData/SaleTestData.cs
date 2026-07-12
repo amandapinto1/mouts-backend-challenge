@@ -10,14 +10,11 @@ public static class SaleTestData
         .RuleFor(s => s.SaleNumber, f => f.Random.AlphaNumeric(10).ToUpper())
         .RuleFor(s => s.SaleDate, f => f.Date.Recent())
         .RuleFor(s => s.CustomerId, f => f.Random.Guid())
-        .RuleFor(s => s.CustomerName, f => f.Person.FullName)
         .RuleFor(s => s.BranchId, f => f.Random.Guid())
-        .RuleFor(s => s.BranchName, f => f.Company.CompanyName())
         .RuleFor(s => s.Items, f => GenerateItems(f.Random.Int(1, 5)));
 
     private static readonly Faker<CreateSaleItemCommand> CreateSaleItemCommandFaker = new Faker<CreateSaleItemCommand>()
         .RuleFor(i => i.ProductId, f => f.Random.Guid())
-        .RuleFor(i => i.ProductName, f => f.Commerce.ProductName())
         .RuleFor(i => i.Quantity, f => f.Random.Int(1, 20))
         .RuleFor(i => i.UnitPrice, f => f.Finance.Amount(10, 500));
 
@@ -31,7 +28,6 @@ public static class SaleTestData
             new CreateSaleItemCommand
             {
                 ProductId = Guid.NewGuid(),
-                ProductName = "Invalid Product",
                 Quantity = 21,
                 UnitPrice = 100m
             }
@@ -45,7 +41,6 @@ public static class SaleTestData
     private static readonly Faker<SaleItem> SaleItemFaker = new Faker<SaleItem>()
         .RuleFor(i => i.Id, f => f.Random.Guid())
         .RuleFor(i => i.ProductId, f => f.Random.Guid())
-        .RuleFor(i => i.ProductName, f => f.Commerce.ProductName())
         .RuleFor(i => i.Quantity, f => f.Random.Int(1, 20))
         .RuleFor(i => i.UnitPrice, f => f.Finance.Amount(10, 500))
         .RuleFor(i => i.IsCancelled, false);
@@ -59,9 +54,7 @@ public static class SaleTestData
             SaleNumber = faker.Random.AlphaNumeric(10).ToUpper(),
             SaleDate = faker.Date.Recent(),
             CustomerId = Guid.NewGuid(),
-            CustomerName = faker.Person.FullName,
             BranchId = Guid.NewGuid(),
-            BranchName = faker.Company.CompanyName(),
             Items = SaleItemFaker.Generate(itemCount)
         };
 

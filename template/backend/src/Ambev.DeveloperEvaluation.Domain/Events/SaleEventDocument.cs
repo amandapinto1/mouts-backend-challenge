@@ -9,6 +9,7 @@ public class SaleEventDocument
     public decimal? TotalAmount { get; set; }
     public Guid? ItemId { get; set; }
     public string? ProductName { get; set; }
+    public Guid? ProductId { get; set; }
     public int? Quantity { get; set; }
     public DateTime Timestamp { get; set; } = DateTime.UtcNow;
     public Dictionary<string, object> Metadata { get; set; } = [];

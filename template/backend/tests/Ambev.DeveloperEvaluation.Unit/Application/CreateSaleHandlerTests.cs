@@ -42,15 +42,12 @@ public class CreateSaleHandlerTests
             SaleNumber = _faker.Random.AlphaNumeric(10),
             SaleDate = DateTime.UtcNow,
             CustomerId = Guid.NewGuid(),
-            CustomerName = _faker.Person.FullName,
             BranchId = Guid.NewGuid(),
-            BranchName = _faker.Company.CompanyName(),
             Items =
             [
                 new CreateSaleItemCommand
                 {
                     ProductId = Guid.NewGuid(),
-                    ProductName = _faker.Commerce.ProductName(),
                     Quantity = 5,
                     UnitPrice = 100m
                 }
@@ -66,7 +63,6 @@ public class CreateSaleHandlerTests
                 new SaleItem
                 {
                     ProductId = command.Items[0].ProductId,
-                    ProductName = command.Items[0].ProductName,
                     Quantity = 5,
                     UnitPrice = 100m
                 }
@@ -103,15 +99,12 @@ public class CreateSaleHandlerTests
             SaleNumber = _faker.Random.AlphaNumeric(10),
             SaleDate = DateTime.UtcNow,
             CustomerId = Guid.NewGuid(),
-            CustomerName = _faker.Person.FullName,
             BranchId = Guid.NewGuid(),
-            BranchName = _faker.Company.CompanyName(),
             Items =
             [
                 new CreateSaleItemCommand
                 {
                     ProductId = Guid.NewGuid(),
-                    ProductName = _faker.Commerce.ProductName(),
                     Quantity = 21,
                     UnitPrice = 50m
                 }

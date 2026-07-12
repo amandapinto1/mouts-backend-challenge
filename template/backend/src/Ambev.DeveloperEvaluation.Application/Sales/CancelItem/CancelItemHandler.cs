@@ -44,14 +44,14 @@ public class CancelItemHandler : IRequestHandler<CancelItemCommand, CancelItemRe
             SaleId = sale.Id,
             SaleNumber = sale.SaleNumber,
             ItemId = item.Id,
-            ProductName = item.ProductName,
+            ProductId = item.ProductId,
             Quantity = item.Quantity
         };
         await _eventRepository.PublishEventAsync(eventDoc, cancellationToken);
 
-        _logger.LogInformation("Event Published: {EventName} - Item {ProductName} (Qty: {Quantity}) cancelled in Sale {SaleNumber}",
-            nameof(ItemCancelledEvent), item.ProductName, item.Quantity, sale.SaleNumber);
+        _logger.LogInformation("Event Published: {EventName} - Item {ProductId} (Qty: {Quantity}) cancelled in Sale {SaleNumber}",
+            nameof(ItemCancelledEvent), item.ProductId, item.Quantity, sale.SaleNumber);
 
-        return new CancelItemResult { Message = $"Item {item.ProductName} cancelled successfully" };
+        return new CancelItemResult { Message = $"Item {item.ProductId} cancelled successfully" };
     }
 }

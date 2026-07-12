@@ -33,16 +33,13 @@ public class SaleRepositoryTests : IDisposable
             SaleNumber = _faker.Random.AlphaNumeric(10),
             SaleDate = DateTime.UtcNow,
             CustomerId = Guid.NewGuid(),
-            CustomerName = _faker.Person.FullName,
             BranchId = Guid.NewGuid(),
-            BranchName = _faker.Company.CompanyName(),
             TotalAmount = 500m,
             Items =
             [
                 new SaleItem
                 {
                     ProductId = Guid.NewGuid(),
-                    ProductName = _faker.Commerce.ProductName(),
                     Quantity = 5,
                     UnitPrice = 100m,
                     Discount = 0.10m,
@@ -69,16 +66,13 @@ public class SaleRepositoryTests : IDisposable
             SaleNumber = _faker.Random.AlphaNumeric(10),
             SaleDate = DateTime.UtcNow,
             CustomerId = Guid.NewGuid(),
-            CustomerName = _faker.Person.FullName,
             BranchId = Guid.NewGuid(),
-            BranchName = _faker.Company.CompanyName(),
             TotalAmount = 200m,
             Items =
             [
                 new SaleItem
                 {
                     ProductId = Guid.NewGuid(),
-                    ProductName = "Product A",
                     Quantity = 2,
                     UnitPrice = 100m,
                     TotalAmount = 200m
@@ -115,22 +109,18 @@ public class SaleRepositoryTests : IDisposable
             SaleNumber = "SALE-001",
             SaleDate = DateTime.UtcNow,
             CustomerId = Guid.NewGuid(),
-            CustomerName = "Original Customer",
             BranchId = Guid.NewGuid(),
-            BranchName = "Branch A",
             TotalAmount = 100m,
             Items = []
         };
         await _repository.CreateAsync(sale);
 
         // Act
-        sale.CustomerName = "Updated Customer";
         sale.TotalAmount = 999m;
         await _repository.UpdateAsync(sale);
 
         // Assert
         var updated = await _repository.GetByIdAsync(sale.Id);
-        updated!.CustomerName.Should().Be("Updated Customer");
         updated.TotalAmount.Should().Be(999m);
     }
 
@@ -143,9 +133,7 @@ public class SaleRepositoryTests : IDisposable
             SaleNumber = "SALE-DEL",
             SaleDate = DateTime.UtcNow,
             CustomerId = Guid.NewGuid(),
-            CustomerName = _faker.Person.FullName,
             BranchId = Guid.NewGuid(),
-            BranchName = _faker.Company.CompanyName(),
             TotalAmount = 0m,
             Items = []
         };
@@ -181,9 +169,7 @@ public class SaleRepositoryTests : IDisposable
                 SaleNumber = $"SALE-{i}",
                 SaleDate = DateTime.UtcNow,
                 CustomerId = Guid.NewGuid(),
-                CustomerName = _faker.Person.FullName,
                 BranchId = Guid.NewGuid(),
-                BranchName = _faker.Company.CompanyName(),
                 TotalAmount = i * 100m,
                 Items = []
             });

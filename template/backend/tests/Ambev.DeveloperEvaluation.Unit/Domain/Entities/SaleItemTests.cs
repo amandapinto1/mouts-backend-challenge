@@ -14,7 +14,6 @@ public class SaleItemTests
         Id = Guid.NewGuid(),
         SaleId = Guid.NewGuid(),
         ProductId = Guid.NewGuid(),
-        ProductName = _faker.Commerce.ProductName(),
         Quantity = quantity,
         UnitPrice = unitPrice
     };

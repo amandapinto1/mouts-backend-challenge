@@ -44,26 +44,20 @@ public class UpdateSaleHandler : IRequestHandler<UpdateSaleCommand, UpdateSaleRe
         if (sale == null)
             throw new KeyNotFoundException($"Sale with Id {command.Id} not found");
 
-        // Resolve BranchName
         var branch = await _branchRepository.GetByIdAsync(command.BranchId, cancellationToken)
             ?? throw new KeyNotFoundException($"Branch with Id {command.BranchId} not found");
-        command.BranchName = branch.Name;
 
-        // Resolve ProductName and UnitPrice for each item
         foreach (var item in command.Items)
         {
             var product = await _productRepository.GetByIdAsync(item.ProductId, cancellationToken)
                 ?? throw new KeyNotFoundException($"Product with Id {item.ProductId} not found");
-            item.ProductName = product.Title;
             item.UnitPrice = product.Price;
         }
 
         sale.SaleNumber = command.SaleNumber;
         sale.SaleDate = command.SaleDate;
         sale.CustomerId = command.CustomerId;
-        sale.CustomerName = command.CustomerName;
         sale.BranchId = command.BranchId;
-        sale.BranchName = command.BranchName;
         sale.Items = _mapper.Map<List<SaleItem>>(command.Items);
 
         foreach (var item in sale.Items)

@@ -39,8 +39,8 @@ public class CancelItemHandlerTests
             SaleNumber = _faker.Random.AlphaNumeric(10),
             Items =
             [
-                new SaleItem { Id = itemId, ProductName = "Product A", Quantity = 5, UnitPrice = 100m, TotalAmount = 450m, IsCancelled = false },
-                new SaleItem { Id = Guid.NewGuid(), ProductName = "Product B", Quantity = 2, UnitPrice = 50m, TotalAmount = 100m, IsCancelled = false }
+                new SaleItem { Id = itemId, ProductId = Guid.NewGuid(), Quantity = 5, UnitPrice = 100m, TotalAmount = 450m, IsCancelled = false },
+                new SaleItem { Id = Guid.NewGuid(), ProductId = Guid.NewGuid(), Quantity = 2, UnitPrice = 50m, TotalAmount = 100m, IsCancelled = false }
             ]
         };
 
@@ -54,7 +54,7 @@ public class CancelItemHandlerTests
 
         // Assert
         result.Should().NotBeNull();
-        result.Message.Should().Contain("Product A");
+        result.Message.Should().Contain("cancelled");
         sale.Items.First(i => i.Id == itemId).IsCancelled.Should().BeTrue();
         sale.TotalAmount.Should().Be(100m);
         await _saleRepository.Received(1).UpdateAsync(Arg.Any<Sale>(), Arg.Any<CancellationToken>());
@@ -82,7 +82,7 @@ public class CancelItemHandlerTests
         {
             Id = Guid.NewGuid(),
             SaleNumber = "S001",
-            Items = [new SaleItem { Id = Guid.NewGuid(), ProductName = "X" }]
+            Items = [new SaleItem { Id = Guid.NewGuid(), ProductId = Guid.NewGuid() }]
         };
 
         _saleRepository.GetByIdAsync(sale.Id, Arg.Any<CancellationToken>()).Returns(sale);

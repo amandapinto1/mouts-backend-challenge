@@ -26,10 +26,8 @@ public class ListSalesHandler : IRequestHandler<ListSalesCommand, ListSalesResul
         query = query.ApplyStringFilter(s => s.SaleNumber, command.SaleNumber);
         if (command.CustomerId.HasValue)
             query = query.Where(s => s.CustomerId == command.CustomerId.Value);
-        query = query.ApplyStringFilter(s => s.CustomerName, command.CustomerName);
         if (command.BranchId.HasValue)
             query = query.Where(s => s.BranchId == command.BranchId.Value);
-        query = query.ApplyStringFilter(s => s.BranchName, command.BranchName);
         if (command.MinDate.HasValue)
             query = query.Where(s => s.SaleDate >= command.MinDate.Value);
         if (command.MaxDate.HasValue)
